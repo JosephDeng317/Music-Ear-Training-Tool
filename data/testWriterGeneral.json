@@ -1,0 +1,14 @@
+{
+    "EASY": [[{
+        "correct": "Major 3rd",
+        "inputted": "Minor 3rd"
+    }]],
+    "MEDIUM": [[{
+        "correct": "Major 6th",
+        "inputted": "Major 6th"
+    }]],
+    "HARD": [[{
+        "correct": "Minor 7th",
+        "inputted": "Major 6th"
+    }]]
+}
