@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import model.SQLite;
 
 // This class lets the user decide between viewing past results and starting a new quiz
 // add to git
@@ -38,7 +39,7 @@ public class Menu extends JFrame implements ActionListener {
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        //runMenu();
+        // runMenu();
     }
 
     // MODIFIES: this
@@ -90,7 +91,6 @@ public class Menu extends JFrame implements ActionListener {
         add(btnLoad);
     }
 
-
     // EFFECTS: Turns the results into a JSON string
     public static JSONObject resultsToJson(ArrayList<TestResultCollection> allResults) {
         JSONObject json = new JSONObject();
@@ -134,6 +134,31 @@ public class Menu extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: saves the test results to file
+    private void saveSQLTestResults() {
+        SQLite.Create("easy");
+        SQLite.Create("medium");
+        SQLite.Create("hard");
+
+        for (TestResultCollection history : allResults) {
+            if (history.getDifficulty().equals("EASY")) {
+                SQLite.Insert("easy", history.getInputList(), history.getAnswerList());
+            } else if (history.getDifficulty().equals("MEDIUM")) {
+                SQLite.Insert("medium", history.getInputList(), history.getAnswerList());
+            } else {
+                SQLite.Insert("hard", history.getInputList(), history.getAnswerList());
+            }
+        }
+        System.out.println("Saved Test History");
+    }
+
+    // EFFECTS: loads test results from file
+    private void loadSQLTestResults() {
+        allResults = SQLite.readSQL();
+        System.out.println("Loaded previous history");
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Play")) {
@@ -142,9 +167,9 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("View")) {
             new ResultDisplay(allResults);
         } else if (e.getActionCommand().equals("Save")) {
-            saveTestResults();
+            saveSQLTestResults();
         } else if (e.getActionCommand().equals("Load")) {
-            loadTestResults();
+            loadSQLTestResults();
         }
     }
 }

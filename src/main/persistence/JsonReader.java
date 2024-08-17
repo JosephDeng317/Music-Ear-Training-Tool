@@ -7,13 +7,14 @@ import model.TestResultCollection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import model.SQLite;
 
 // Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
@@ -55,7 +56,8 @@ public class JsonReader {
         return history;
     }
 
-    // EFFECTS: parses JSON subarrays (split by difficulty) into an array of TestResultCollection
+    // EFFECTS: parses JSON subarrays (split by difficulty) into an array of
+    // TestResultCollection
     private ArrayList<TestResultCollection> parseResultsOfDifficulty(JSONArray jsonArray, String difficulty) {
         ArrayList<TestResultCollection> history = new ArrayList<>();
         for (Object jsonSubArray : jsonArray) {

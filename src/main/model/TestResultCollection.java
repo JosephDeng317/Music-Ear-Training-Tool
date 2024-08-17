@@ -12,9 +12,10 @@ public class TestResultCollection {
     ArrayList<TestResult> collection;
     boolean visible;
 
-    //Constructs an instance of TestResultCollection which acts as a container for a list of Test Results
+    // Constructs an instance of TestResultCollection which acts as a container for
+    // a list of Test Results
     public TestResultCollection(ArrayList<TestResult> collection, String difficulty) {
-        //EventLog.getInstance().logEvent(new Event("New Quiz Started"));
+        // EventLog.getInstance().logEvent(new Event("New Quiz Started"));
         this.difficulty = difficulty;
         this.collection = collection;
         visible = true;
@@ -50,7 +51,8 @@ public class TestResultCollection {
         return collection;
     }
 
-    // EFFECTS: returns the collection of testResults contained in collection as a JSON array
+    // EFFECTS: returns the collection of testResults contained in collection as a
+    // JSON array
     public JSONArray testResultsToJson() {
         EventLog.getInstance().logEvent(new Event("Saved Result of a quiz to JSON file"));
         JSONArray jsonArray = new JSONArray();
@@ -60,5 +62,25 @@ public class TestResultCollection {
         }
 
         return jsonArray;
+    }
+
+    public ArrayList<String> getInputList() {
+        ArrayList<String> inputList = new ArrayList<>();
+
+        for (TestResult t : collection) {
+            inputList.add(t.getInputtedAnswer());
+        }
+
+        return inputList;
+    }
+
+    public ArrayList<String> getAnswerList() {
+        ArrayList<String> inputList = new ArrayList<>();
+
+        for (TestResult t : collection) {
+            inputList.add(t.getCorrectAnswer());
+        }
+
+        return inputList;
     }
 }
