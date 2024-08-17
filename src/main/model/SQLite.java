@@ -101,15 +101,15 @@ public class SQLite {
 
         ArrayList<TestResult> easyTests = new ArrayList<>();
         addTestResults(easyTests, Select("easy"));
-        TestResultCollection easyCollection = new TestResultCollection(null, "easy");
+        TestResultCollection easyCollection = new TestResultCollection(easyTests, "EASY");
 
         ArrayList<TestResult> medTests = new ArrayList<>();
         addTestResults(medTests, Select("medium"));
-        TestResultCollection medCollection = new TestResultCollection(null, "easy");
+        TestResultCollection medCollection = new TestResultCollection(medTests, "MEDIUM");
 
         ArrayList<TestResult> hardTests = new ArrayList<>();
-        addTestResults(medTests, Select("medium"));
-        TestResultCollection hardCollection = new TestResultCollection(null, "easy");
+        addTestResults(hardTests, Select("hard"));
+        TestResultCollection hardCollection = new TestResultCollection(hardTests, "HARD");
 
         output.add(easyCollection);
         output.add(medCollection);
